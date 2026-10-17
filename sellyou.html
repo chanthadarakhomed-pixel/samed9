@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SellYou | Online Store</title>
+  <link rel="stylesheet" href="sellyou.css">
+</head>
+<body>
+
+  <header class="header">
+    <a href="#" class="logo">Sell<span>You</span></a>
+
+    <nav>
+      <a href="#home" data-i18n="home">ទំព័រដើម</a>
+      <a href="#products" data-i18n="products">ទំនិញ</a>
+      <a href="#about" data-i18n="about">អំពីយើង</a>
+    </nav>
+
+    <div class="header-actions">
+      <button id="languageBtn" class="language-btn">English</button>
+      <button id="adminOpen" class="admin-btn" data-i18n="admin">
+        គ្រប់គ្រង
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <p class="eyebrow" data-i18n="welcome">សូមស្វាគមន៍មកកាន់ SellYou</p>
+        <h1 data-i18n="heroTitle">ទិញទំនិញងាយស្រួល<br>តម្លៃសមរម្យ</h1>
+        <p data-i18n="heroDesc">
+          ស្វែងរកទំនិញដែលអ្នកចូលចិត្តនៅទីនេះ។
+        </p>
+        <a href="#products" class="primary-btn" data-i18n="shopNow">
+          ទិញឥឡូវនេះ
+        </a>
+      </div>
+    </section>
+
+    <section id="products" class="products-section">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="ourCollection">OUR COLLECTION</p>
+        <h2 data-i18n="featuredProducts">ទំនិញពេញនិយម</h2>
+      </div>
+
+      <div class="toolbar">
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="ស្វែងរកទំនិញ..."
+          data-i18n-placeholder="search"
+        >
+
+        <select id="categoryFilter">
+          <option value="all" data-i18n="allCategories">គ្រប់ប្រភេទ</option>
+          <option value="Fashion" data-i18n="fashion">ម៉ូដ</option>
+          <option value="Electronics" data-i18n="electronics">គ្រឿងអេឡិចត្រូនិក</option>
+          <option value="Accessories" data-i18n="accessories">គ្រឿងបន្ថែម</option>
+        </select>
+      </div>
+
+      <div id="productGrid" class="product-grid"></div>
+    </section>
+
+    <section id="about" class="about-section">
+      <h2 data-i18n="aboutTitle">អំពី SellYou</h2>
+      <p data-i18n="aboutDesc">
+        SellYou ជាហាងអនឡាញដែលធ្វើឱ្យការទិញទំនិញកាន់តែងាយស្រួល។
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 SellYou. <span data-i18n="rights">រក្សាសិទ្ធិគ្រប់យ៉ាង។</span></p>
+  </footer>
+
+  <!-- Order Modal -->
+  <div id="orderModal" class="modal hidden">
+    <div class="modal-card">
+      <button class="close-btn" id="closeOrder" aria-label="Close">×</button>
+      <h2 data-i18n="orderTitle">បញ្ជាទិញទំនិញ</h2>
+
+      <form id="orderForm">
+        <label data-i18n="customerName">ឈ្មោះអតិថិជន</label>
+        <input id="customerName" required>
+
+        <label data-i18n="phone">លេខទូរស័ព្ទ</label>
+        <input id="customerPhone" type="tel" required>
+
+        <label data-i18n="address">អាសយដ្ឋានដឹកជញ្ជូន</label>
+        <textarea id="customerAddress" required></textarea>
+
+        <label data-i18n="product">ទំនិញ</label>
+        <input id="orderProduct" readonly>
+
+        <label data-i18n="quantity">ចំនួន</label>
+        <input id="orderQuantity" type="number" min="1" value="1" required>
+
+        <p class="total">
+          <span data-i18n="total">សរុប</span>:
+          <strong id="orderTotal">$0.00</strong>
+        </p>
+
+        <label data-i18n="payment">វិធីបង់ប្រាក់</label>
+        <select id="paymentMethod">
+          <option value="cod" data-i18n="cod">បង់ប្រាក់ពេលទទួលទំនិញ</option>
+          <option value="bank" data-i18n="bank">ផ្ទេរប្រាក់តាមធនាគារ</option>
+        </select>
+
+        <button type="submit" class="primary-btn full-width" data-i18n="submitOrder">
+          បញ្ជាក់ការបញ្ជាទិញ
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Modal -->
+  <div id="adminModal" class="modal hidden">
+    <div class="modal-card admin-card">
+      <button class="close-btn" id="closeAdmin" aria-label="Close">×</button>
+      <h2 data-i18n="adminDashboard">ផ្ទាំងគ្រប់គ្រង</h2>
+
+      <div class="stats">
+        <div class="stat-card">
+          <span data-i18n="orders">ការបញ្ជាទិញ</span>
+          <strong id="orderCount">0</strong>
+        </div>
+        <div class="stat-card">
+          <span data-i18n="revenue">ចំណូល</span>
+          <strong id="revenue">$0.00</strong>
+        </div>
+      </div>
+
+      <h3 data-i18n="manageProducts">គ្រប់គ្រងទំនិញ</h3>
+
+      <form id="productForm">
+        <input id="editProductId" type="hidden">
+
+        <label data-i18n="productName">ឈ្មោះទំនិញ</label>
+        <input id="newProductName" required>
+
+        <label data-i18n="price">តម្លៃ ($)</label>
+        <input id="newProductPrice" type="number" min="0.01" step="0.01" required>
+
+        <label data-i18n="category">ប្រភេទ</label>
+        <select id="newProductCategory">
+          <option value="Fashion" data-i18n="fashion">ម៉ូដ</option>
+          <option value="Electronics" data-i18n="electronics">គ្រឿងអេឡិចត្រូនិក</option>
+          <option value="Accessories" data-i18n="accessories">គ្រឿងបន្ថែម</option>
+        </select>
+
+        <label data-i18n="imageUrl">URL រូបភាព</label>
+        <input id="newProductImage" type="url" placeholder="https://example.com/image.jpg">
+
+        <button type="submit" id="saveProductBtn" class="primary-btn full-width" data-i18n="addProduct">
+          បន្ថែមទំនិញ
+        </button>
+      </form>
+
+      <div id="adminProductList" class="admin-list"></div>
+
+      <h3 data-i18n="orderHistory">ប្រវត្តិការបញ្ជាទិញ</h3>
+      <div id="adminOrderList" class="admin-list"></div>
+
+      <button id="exportOrders" class="secondary-btn full-width" data-i18n="export">
+        ទាញយកការបញ្ជាទិញជា JSON
+      </button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
